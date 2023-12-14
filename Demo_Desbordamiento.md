@@ -50,10 +50,9 @@ Una vez que tenemos configurado el entorno de trabajo, comenzaremos con la ident
 ### Escaneo de Red para Reconocer la IP de la Máquina Víctima
 
 Para identificar la dirección IP de la máquina víctima, realizaremos un escaneo de red. Abriremos una terminal en nuestra máquina Kali como 'root' y ejecutaremos el siguiente comando:
-
-```bash
+```
 arp-scan -I <nombre de tu interfaz de red> --localnet --ignoredups
-
+```
 ### Identificación de las Máquinas en el Resultado del Escaneo
 
 Al realizar el escaneo de red, obtuvimos una lista de direcciones IP disponibles en la red. Para identificar las máquinas relevantes, seguiremos los siguientes pasos:
