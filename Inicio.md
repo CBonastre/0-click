@@ -20,7 +20,7 @@ OTA es un método que permite la actualización inalámbrica de software en disp
 
 Nuestra búsqueda nos llevó a revisar bases de datos de vulnerabilidades, donde finalmente encontramos información crucial. La vulnerabilidad CVE-2022-36934, reportada en WhatsApp, permitía a un atacante ejecutar código arbitrario debido a un desbordamiento de un entero en las videollamadas de la aplicación.
 
-#### Desbordamiento de Entero y Buffer
+#### Desbordamiento de Entero
 
 Ahora nos enfrentábamos a la pregunta de qué significaba realmente un desbordamiento de entero o buffer y cómo esto posibilitaba la ejecución remota de código.
 
