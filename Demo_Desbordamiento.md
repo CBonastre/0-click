@@ -54,3 +54,22 @@ Para identificar la dirección IP de la máquina víctima, realizaremos un escan
 ```bash
 arp-scan -I <nombre de tu interfaz de red> --localnet --ignoredups
 
+### Identificación de las Máquinas en el Resultado del Escaneo
+
+Al realizar el escaneo de red, obtuvimos una lista de direcciones IP disponibles en la red. Para identificar las máquinas relevantes, seguiremos los siguientes pasos:
+
+1. **Reconocer las IPs Asociadas a Funciones de Virtualización:**
+   - Las primeras direcciones IP en la lista corresponden a funciones del software de virtualización, en este caso, VirtualBox. Descartaremos estas direcciones IP ya que no son nuestras máquinas objetivo.
+
+2. **Distinguir entre las IPs Restantes:**
+   - Para identificar nuestra máquina Windows 11 y la máquina Brainpan, procederemos a lanzar un comando de ping a cada una de las direcciones IP restantes para analizar el TTL (Time To Live) devuelto.
+
+3. **Análisis del TTL:**
+   - Las máquinas Windows suelen tener un valor de TTL predeterminado de 128, mientras que las máquinas Linux tienen un valor de 64. Usaremos esto como indicador para diferenciar entre las máquinas.
+
+### Lanzamiento del Comando Ping para Analizar el TTL
+
+Usaremos el siguiente comando para cada una de las direcciones IP obtenidas del escaneo de red:
+
+```bash
+ping -c 1 <IP de la máquina>
