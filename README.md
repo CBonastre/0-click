@@ -20,6 +20,7 @@ En este repositorio, encontrarás un ejemplo práctico de una vulnerabilidad que
 
 ### Estructura del Repositorio
 
+- **`/Inicio`**: Contiene una breve explicación de donde surge este proyecto.
 - **`/Casos_Conocidos`**: Contiene documentación detallada sobre casos específicos de ataques 0-clic.
 - **`/Ejemplo_Vulnerabilidad`**: Ofrece un ejemplo práctico de una vulnerabilidad y cómo puede ser explotada.
 - **`/Demo`**: Aquí se encuentra la demostración interactiva para comprender mejor el funcionamiento de esta amenaza.
