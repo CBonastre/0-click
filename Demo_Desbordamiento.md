@@ -162,6 +162,7 @@ Nuestro objetivo es conseguir sobreescribir el registro EIP en la memoria. Este 
 
 Este paso es esencial para explorar vulnerabilidades como el desbordamiento de buffer y buscar cómo podemos influir en el flujo de ejecución del programa para obtener un control más significativo sobre su funcionamiento.
 
+### Coming soon...
 
 
 
