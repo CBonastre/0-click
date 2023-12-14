@@ -50,7 +50,7 @@ Una vez que tenemos configurado el entorno de trabajo, comenzaremos con la ident
 ### Escaneo de Red para Reconocer la IP de la Máquina Víctima
 
 Para identificar la dirección IP de la máquina víctima, realizaremos un escaneo de red. Abriremos una terminal en nuestra máquina Kali como 'root' y ejecutaremos el siguiente comando:
-```
+```bash
 arp-scan -I <nombre de tu interfaz de red> --localnet --ignoredups
 ```
 ### Identificación de las Máquinas en el Resultado del Escaneo
@@ -71,4 +71,100 @@ Al realizar el escaneo de red, obtuvimos una lista de direcciones IP disponibles
 Usaremos el siguiente comando para cada una de las direcciones IP obtenidas del escaneo de red:
 
 ```bash
-ping -c 1 <IP de la máquina>
+ping -c 1 <IP de la máquina> 
+```
+### Enumeración de Puertos Abiertos en la Máquina Víctima
+
+Una vez identificada la dirección IP de la máquina víctima (en este caso, la IP es `10.40.2.13`), utilizaremos la herramienta NMAP para realizar la enumeración de los puertos abiertos en nuestro objetivo.
+
+Utilizaremos el siguiente comando NMAP:
+
+```bash
+nmap -p- --open -T5 -v -n <IP objetivo>
+```
+
+### Verificación de los Servicios en los Puertos Identificados
+
+Después de identificar los puertos abiertos, en este caso, los puertos `9999` y `10000`, procederemos a verificar qué servicios están en ejecución detrás de cada uno de ellos.
+
+Para ello, abriremos un navegador web y en la barra de direcciones ingresaremos lo siguiente:
+
+- **Para el Puerto 10000:**
+  http://IP_Brainpan:10000
+  Este paso nos permitirá verificar si algún servicio específico responde en el puerto 10000. Y al acceder podemos que es una pagina web.
+
+- **Para el Puerto 9999:**
+  http://IP_Brainpan:9999
+### Interacción con el Portal de Acceso en el Puerto 9999
+
+Al acceder al puerto 9999, nos encontramos con un portal de acceso que requiere una contraseña para continuar. Este portal podría estar relacionado con un binario o servicio específico.
+
+### Conexión al Puerto 9999 mediante Netcat (nc)
+
+Para intentar establecer una conexión directa al puerto 9999, utilizaremos la herramienta Netcat (nc) desde nuestra máquina Kali Linux. El objetivo es explorar más a fondo el comportamiento de este servicio y realizar pruebas de conexión directa.
+
+Usaremos el siguiente comando:
+
+```bash
+nc IP_Brainpan 9999
+```
+### Investigación de Posible Desbordamiento de Buffer
+
+Basándonos en nuestra investigación previa y considerando la solicitud de contraseña en el portal de acceso del puerto 9999, existe la posibilidad de que el sistema tenga una vulnerabilidad de desbordamiento de buffer si no se realiza un control adecuado de la entrada de datos.
+
+#### Enfoque para Probar el Desbordamiento de Buffer
+
+Para explorar esta posibilidad, consideraremos la inserción de longitud excesiva en el campo de entrada de contraseña. Esto podría causar un desbordamiento de buffer si el sistema no tiene un control adecuado sobre la cantidad de datos ingresados.
+
+### Generación de Cadena para Prueba de Desbordamiento
+
+Para evaluar la posible vulnerabilidad de desbordamiento de buffer, generaremos una cadena de caracteres utilizando Python y la introduciremos en el campo de contraseña del portal de acceso en el puerto 9999.
+
+Utilizaremos el siguiente comando para generar una cadena de longitud considerable:
+
+```bash
+python3 -c 'print("A"*1000)'
+```
+Tras introducir la cadena generada en el campo de contraseña del portal de acceso en el puerto 9999, observamos que el servicio se vuelve inoperativo. Al intentar una nueva conexión, se nos deniega el acceso, lo cual sugiere claramente que existe una vulnerabilidad de desbordamiento de buffer en el sistema.
+### Búsqueda del Código Fuente y Reinicio de la Máquina Víctima
+
+Antes de continuar, es necesario reiniciar la máquina víctima (Brainpan) debido a que quedó fuera de servicio tras la prueba de desbordamiento de buffer.
+
+**Reinicio de la Máquina Víctima:**
+Para restablecer la máquina víctima y poder continuar con nuestra investigación, se recomienda reiniciar la máquina afectada.
+
+Ahora, respecto a la búsqueda del código fuente del binario en el puerto 10000, utilizaremos la herramienta 'gobuster' para buscar subdirectorios dentro de la página web que corre en dicho puerto. Esto con la esperanza de encontrar alguna ruta que nos proporcione acceso al código fuente.
+
+**Ejecución del Comando 'gobuster'**
+
+Utilizaremos el siguiente comando 'gobuster' para buscar subdirectorios en la URL asociada al puerto 10000:
+
+```bash
+gobuster dir -u http://IP_Brainpan:10000 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+```
+Después de ejecutar el comando Gobuster, se identificó la presencia de un subdirectorio relevante: "/bin". Al acceder a este subdirectorio, confirmamos que es posible descargar el ejecutable.
+
+#### Descarga del Ejecutable para Análisis Local
+
+Procederemos a descargar este ejecutable en nuestra máquina con sistema operativo Windows. El propósito es trabajar con este archivo en un entorno controlado para llevar a cabo un análisis minucioso. Esta acción nos permitirá comprender mejor el funcionamiento interno del código y su comportamiento, particularmente cuando se le aplica un desbordamiento de buffer.
+
+### Análisis Inicial del Ejecutable con Immunity Debugger
+
+Una vez que tenemos el ejecutable en nuestra máquina Windows, procedemos a ejecutarlo. Para analizar su comportamiento y realizar un seguimiento de la ejecución del programa, abriremos la herramienta Immunity Debugger.
+
+**Uso de Immunity Debugger para Analizar el Ejecutable**
+
+Al abrir Immunity Debugger, seleccionamos el ejecutable Brainpan navegando a "File > Attach". Esto nos permitirá analizar el programa en ejecución y observar detalles cruciales, como direcciones de memoria y otros datos relevantes.
+
+**Objetivo: Sobreescribir el Registro EIP**
+
+Nuestro objetivo es conseguir sobreescribir el registro EIP en la memoria. Este registro, el Puntero de Instrucción Extendido, indica la próxima instrucción a ejecutar en el programa. Al lograr sobreescribir este registro, podríamos tomar control sobre la secuencia de ejecución del programa y manipular su comportamiento.
+
+Este paso es esencial para explorar vulnerabilidades como el desbordamiento de buffer y buscar cómo podemos influir en el flujo de ejecución del programa para obtener un control más significativo sobre su funcionamiento.
+
+
+
+
+
+
+
