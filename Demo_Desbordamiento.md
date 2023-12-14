@@ -99,7 +99,7 @@ Para ello, abriremos un navegador web y en la barra de direcciones ingresaremos 
 
 Al acceder al puerto 9999, nos encontramos con un portal de acceso que requiere una contraseña para continuar. Este portal podría estar relacionado con un binario o servicio específico.
 
-### Conexión al Puerto 9999 mediante Netcat (nc)
+**Conexión al Puerto 9999 mediante Netcat (nc)**
 
 Para intentar establecer una conexión directa al puerto 9999, utilizaremos la herramienta Netcat (nc) desde nuestra máquina Kali Linux. El objetivo es explorar más a fondo el comportamiento de este servicio y realizar pruebas de conexión directa.
 
