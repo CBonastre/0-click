@@ -165,6 +165,7 @@ Este paso es esencial para explorar vulnerabilidades como el desbordamiento de b
 ### Descubrir punto de offset
 
 El siguiente paso es generar un patron de desbordamiento, para conectarnos mediante nc como antes pero ahora a nuestra maquina windows que es donde tenemos corriendo el ejecutable para ver como se comporta. 
+
 **Generar patrón de desbordamiento**
 
 Para generar el patron de desbordamineto abriremos otro terminal en nuetsro kali y lanzaremos el siguiente comando:
@@ -180,6 +181,7 @@ Ahora copiamos el patrón que hemos generado, nos conectamos mediante netcat a n
 nc <IP_Windows>:9999
 ```
 Una vez conectados, introducimos el patron generado donde nos pide la contraseña, forzando así otro desbordamiento. Si vamos a la ventana del immunity debugger podemos ver que en el recuadro de arriba a la derecha en el registro EIP aparece un numero de 8 digitos.
+
 **Encontrar offset**
 
 Copiaremos el numero que aparece al lado del registro EIP y en la terminal donde hemos generado el patron de desbordamiento lanzaremos el siguiente comando:
