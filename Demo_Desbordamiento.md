@@ -152,9 +152,14 @@ Procederemos a descargar este ejecutable en nuestra máquina con sistema operati
 
 Una vez que tenemos el ejecutable en nuestra máquina Windows, procedemos a ejecutarlo. Para analizar su comportamiento y realizar un seguimiento de la ejecución del programa, abriremos la herramienta Immunity Debugger.
 
+**NOTA:** Cada vez que realicemos una prueba y, como consecuencia, el ejecutable quede fuera de servicio, deberemos reiniciarlo junto con el debugger. 
+
 **Uso de Immunity Debugger para Analizar el Ejecutable**
 
 Al abrir Immunity Debugger, seleccionamos el ejecutable Brainpan navegando a "File > Attach". Esto nos permitirá analizar el programa en ejecución y observar detalles cruciales, como direcciones de memoria y otros datos relevantes.
+
+**IMPORTANTE**
+: Cada vez que seleccionemos un programa, este por defecto se pausa en el debugger. Importante antes de ralizar ninguna prueba pulsar el iconito de "Run" (F9).
 
 **Objetivo: Sobreescribir el Registro EIP**
 
@@ -189,6 +194,40 @@ Copiaremos el numero que aparece al lado del registro EIP y en la terminal donde
 /usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q <Valor registro EIP>
 ```
 Esto nos va a devolver la longitud exacta en la que se produce el desbordamiento, en este caso vemos que es 524.
+
+## Comprobar que parte de memoria se sobrescribe
+
+**Registro EIP**
+
+Una vez que conocemos la longitud necesaria para producir el desbordamiento, podemos comprobar si lo que escribimos después de estos 524 caracteres sobrescribe la dirección de memoria del registro EIP o no.
+Para hacer esto, generaremos una cadena de caracteres "A" de longitud 524 (offset), seguida de 4 caracteres "B". De esta manera, si realmente estamos sobrescribiendo el registro EIP, veremos que su valor pasa a ser "42424242", que corresponde a los 4 caracteres "B" en codificación ASCII.
+Para ello usaremos el comando:
+
+```bash
+python3 -c 'print("A"*524 + "B"*4)'
+```
+
+Una vez generada la cadena, nos volveremos a conectar mediante netcat utilizando el comando usado anteriormente. Pegaremos la cadena que acabamos de generar para así poder comprobar qué sección de memoria estamos sobrescribiendo. Si nos fijamos, en la ventana del Immunity Debugger el valor del registro de memoria EIP tras producirse el desbordamiento efectivamente corresponde a "42424242".
+
+**Registro ESP**
+
+Lo siguiente es verificar qué parte de la memoria se sobrescribe al seguir añadiendo caracteres a nuestra cadena de desbordamiento. Esto es crucial, ya que esta sección de la cadena es donde introduciremos nuestro Shellcode. Por lo tanto, debemos asegurarnos de que todos estos bytes de datos se sobrescriban en la pila de memoria, es decir, en el registro ESP.
+
+Para realizar esta comprobación, usaremos la misma cadena que antes, añadiendo caracteres "C" después de las 4 "B" que sabemos que se sobrescriben en el EIP. De esta manera, veremos de manera muy clara si realmente estamos sobrescribiendo la pila de memoria.
+El comando que podemos usar:
+
+```bash
+python3 -c 'print("A"*524 + "B"*4 + "C"*30)'
+```
+Si ahora volvemos a relaizar la conexión usando netcat, y le introducimos la nueva cadena, podremos ver en la ventana del debuger que efectivamente los caracteres "C" que hemos añadido se estan almacenando en la pila de memoria.
+
+## Bad chars
+
+Llegados a este punto ya sabemos que podemos sobrescribir tanto el puntero EIP, como la pila de memoria (ESP). El seguiente 
+
+## coming soon...
+
+
 
 
 
