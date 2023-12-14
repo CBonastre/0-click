@@ -162,9 +162,28 @@ Nuestro objetivo es conseguir sobreescribir el registro EIP en la memoria. Este 
 
 Este paso es esencial para explorar vulnerabilidades como el desbordamiento de buffer y buscar cómo podemos influir en el flujo de ejecución del programa para obtener un control más significativo sobre su funcionamiento.
 
-### Coming soon...
+### Descubrir punto de offset
 
+El siguiente paso es generar un patron de desbordamiento, para conectarnos mediante nc como antes pero ahora a nuestra maquina windows que es donde tenemos corriendo el ejecutable para ver como se comporta. 
+**Generar patrón de desbordamiento**
+Para generar el patron de desbordamineto abriremos otro terminal en nuetsro kali y lanzaremos el siguiente comando:
+```bash
+/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 1000
+``` 
+Este comando nos genera un patron de la longitud que le pasemos como parametro detras de -l. 
 
+**Desbordar Buffer de nuevo**
+Ahora copiamos el patrón que hemos generado, nos conectamos mediante netcat a nuestro windows con el comando:
+```bash
+nc <IP_Windows>:9999
+```
+Una vez conectados, introducimos el patron generado donde nos pide la contraseña, forzando así otro desbordamiento. Si vamos a la ventana del immunity debugger podemos ver que en el recuadro de arriba a la derecha en el registro EIP aparece un numero de 8 digitos.
+**Encontrar offset**
+Copiaremos el numero que aparece al lado del registro EIP y en la terminal donde hemos generado el patron de desbordamiento lanzaremos el siguiente comando:
+```bash
+/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q <Valor registro EIP>
+```
+Esto nos va a devolver la longitud exacta en la que se produce el desbordamiento, en este caso vemos que es 524.
 
 
 
