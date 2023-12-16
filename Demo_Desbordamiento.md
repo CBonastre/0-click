@@ -349,6 +349,7 @@ s.close()
 ```
 
 **Comparación bytearray.bin y pila de memoria**
+
 Una vez creado el script (no te olvides de darle permisos de ejecución), volveremos a arrancar el ejecutable en nuestra máquina Windows y prepararemos la herramienta Immunity Debugger para poder observar el comportamiento del binario Brainpan.
 Una vez esté todo listo, ejecutaremos el script (en mi caso, lo he nombrado como "exploit.py").
 
