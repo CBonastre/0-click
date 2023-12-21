@@ -471,6 +471,7 @@ nc -lvp 443
 
 ![Captura34](https://github.com/CBonastre/0-click/assets/151465796/f5a2979b-05b9-4ed5-bf02-b3a438178b76)
 
+![Captura35](https://github.com/CBonastre/0-click/assets/151465796/bb8abb06-8790-4420-a0b6-e4c332edef5f)
 
 
 ## Ataque a la máquina Brainpan
