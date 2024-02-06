@@ -193,7 +193,7 @@ Al abrir Immunity Debugger, seleccionamos el ejecutable Brainpan navegando a "Fi
 
 **Objetivo: Sobreescribir el Registro EIP**
 
-Nuestro objetivo es conseguir sobreescribir el registro EIP en la memoria. Este registro, el Puntero de Instrucción Extendido, indica la próxima instrucción a ejecutar en el programa. Al lograr sobreescribir este registro, podríamos tomar control sobre la secuencia de ejecución del programa y manipular su comportamiento.
+Nuestro objetivo es conseguir sobrescribir el registro EIP en la memoria. Este registro, el Puntero de Instrucción Extendido, indica la próxima instrucción a ejecutar en el programa. Al lograr sobrescribir este registro, podríamos tomar control sobre la secuencia de ejecución del programa y manipular su comportamiento.
 
 Este paso es esencial para explorar vulnerabilidades como el desbordamiento de buffer y buscar cómo podemos influir en el flujo de ejecución del programa para obtener un control más significativo sobre su funcionamiento.
 
