@@ -18,11 +18,6 @@ Algunos ejemplos y descripciones de casos conocidos de ataques 0-clic:
 
 En este repositorio, encontrarás un ejemplo práctico de una vulnerabilidad que podría ser explotada para llevar a cabo un ataque 0-clic. Además, se incluye una demostración que muestra cómo funcionaría esta vulnerabilidad en un entorno controlado.
 
-### Estructura del Repositorio
-
-- **`/Inicio`**: Contiene una breve explicación de donde surge este proyecto.
-- **`/Desbordamiento`**: Explica en que consiste un desbordamiento de una variable y que puede conllevar en terminos de ciberseguridad.
-- **`/Demo_Desbordamiento`**: Aquí se encuentra la demostración interactiva para comprender mejor el funcionamiento de esta amenaza.
 
 ## Contribuciones y Feedback
 
