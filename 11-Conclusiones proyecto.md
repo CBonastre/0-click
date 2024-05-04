@@ -2,7 +2,7 @@
 
 Durante este proyecto, hemos obtenido importantes conclusiones que nos permiten reflexionar sobre la efectividad y la importancia de la **concienciación en seguridad cibernética**.
 
-Hemos observado que una inmensa mayoría de los objetivos no ha abierto el correo de phishing. No podemos determinar si esto se debe a pasotismo o a un conocimiento previo sobre la naturaleza maliciosa del correo electrónico. 
+Hemos observado que una inmensa mayoría de los objetivos no ha abierto el correo de phishing. No podemos determinar si esto se debe a pasotismo, a que su servidor de correo lo ha clasificado como spam o a un conocimiento previo sobre la naturaleza maliciosa del correo electrónico. 
 Sin embargo, esta observación subraya la necesidad de **educar a los usuarios sobre la identificación y el manejo de correos electrónicos sospechosos**.
 
 Además, hemos podido comprobar que las campañas más generales han sido menos efectivas que las campañas individuales o más personalizadas. 
