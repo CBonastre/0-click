@@ -51,6 +51,10 @@ Una vez modificado el archivo de configuración, guardaremos los cambios. Luego,
 Con Gophish corriendo, podemos abrir nuestro navegador y acceder al panel de administrador buscando: `https://tudominio:3333`, donde `tudominio` es la dirección de tu servidor. Debería aparecer el siguiente panel de login:
 
 
+![Captura de pantalla 2024-05-04 172616](https://github.com/CBonastre/0-click/assets/151465796/5df751c6-ca3d-4bc9-8cce-6d3cc26be5d9)
+
+
+
 
 
 
