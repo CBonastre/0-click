@@ -32,15 +32,15 @@ Una vez que Ubuntu Server esté instalado, sigue estos pasos para configurar una
    - Inicia sesión en Ubuntu Server utilizando las credenciales de administrador.
 
 2. **Edición del archivo de configuración de red:**
-   - Abre un terminal o una sesión de SSH en el servidor.
-   - Edita el archivo de configuración de red utilizando un editor de texto como `nano` o `vi`:
+   - Edita el archivo de configuración de red utilizando un editor de texto como `nano` o `vim`:
+     
      ```
      sudo nano /etc/netplan/00-installer-config.yaml
      ```
 
-3. **Configuración de la dirección IP estática:**
-   - Busca la sección que define la configuración de red.
+4. **Configuración de la dirección IP estática:**
    - Modifica el archivo para que se vea similar a esto:
+     
      ```yaml
      network:
        version: 2
@@ -54,15 +54,17 @@ Una vez que Ubuntu Server esté instalado, sigue estos pasos para configurar una
              addresses: [8.8.8.8, 8.8.4.4]   # Opcional: cambia los servidores DNS si es necesario.
      ```
 
-4. **Aplicación de los cambios de configuración:**
+5. **Aplicación de los cambios de configuración:**
    - Guarda y cierra el archivo de configuración.
    - Aplica los cambios ejecutando el siguiente comando:
+     
      ```
      sudo netplan apply
      ```
 
-5. **Verificación de la configuración:**
+6. **Verificación de la configuración:**
    - Verifica que la configuración se haya aplicado correctamente ejecutando el comando:
+     
      ```
      ip a
      ```
@@ -71,4 +73,4 @@ Una vez que Ubuntu Server esté instalado, sigue estos pasos para configurar una
 
 Ahora el servidor Ubuntu Server ya está instalado y configurado correctamente para la instalación de Gophish.
 
-**NOTA**: Es importante realizar un correcto redirecionamiento de puertos para su correcto funcionamiento.
+**NOTA**: Es importante realizar un correcto redirecionamiento de puertos en el enrutador para un correcto funcionamiento.
