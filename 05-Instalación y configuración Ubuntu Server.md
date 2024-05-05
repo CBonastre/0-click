@@ -43,15 +43,17 @@ Una vez que Ubuntu Server esté instalado, sigue estos pasos para configurar una
      
      ```yaml
      network:
-       version: 2
-       renderer: networkd
-       ethernets:
-         ensXXX:   # Reemplaza "ensXXX" con el nombre de tu interfaz de red (puedes encontrarlo ejecutando el comando "ip a").
-           dhcp4: no
-           addresses: [192.168.1.33/24]   # Cambia la dirección IP según tus necesidades.
-           gateway4: 192.168.1.1   # Cambia la puerta de enlace predeterminada si es diferente.
-           nameservers:
-             addresses: [8.8.8.8, 8.8.4.4]   # Opcional: cambia los servidores DNS si es necesario.
+ version: 2
+ renderer: networkd
+  ethernets:
+    enp0s3:   # Reemplaza "ensXXX" con el nombre de tu interfaz de red (puedes encontrarlo ejecutando el comando "ip a").
+      dhcp4: no
+      addresses: 
+        -192.168.1.33/24   # Cambia la dirección IP según tus necesidades.
+      gateway4: 
+        -192.168.1.1   # Cambia la puerta de enlace predeterminada si es diferente.
+       nameservers:
+           addresses: [8.8.8.8, 8.8.4.4]   # Opcional: cambia los servidores DNS si es necesario.
      ```
 
 5. **Aplicación de los cambios de configuración:**
