@@ -15,7 +15,7 @@ Es importante tener en cuenta que el campo de contraseña debe contener una cont
 
 Con el sending profile configurado, el siguiente paso será configurar la plantilla de correo electrónico de la campaña. 
 
-En el apartado de "Email Templates" añadiremos unanueva plantilla. Al hacer eso, tendremos la opción de crear una desde cero o importar una existente.
+En el apartado de "Email Templates" añadiremos una nueva plantilla. Al hacer eso, tendremos la opción de crear una desde cero o importar una existente.
 
 ![Captura de pantalla 2024-05-04 175502](https://github.com/CBonastre/0-click/assets/151465796/eef31b33-3c29-4d53-9b91-47be0e16129b)
 
