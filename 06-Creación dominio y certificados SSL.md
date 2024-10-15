@@ -36,6 +36,7 @@ La salida del comando debería ser algo parecido a lo siguiente:
 
 ![Certificados](https://github.com/CBonastre/0-click/assets/151465796/6462b679-c940-4b6c-a634-d41a97c82c69)
 
-**IMPORTANTE:** Acordarse de la ruta donde se guardan los certificados, necesitaremos ese path para realizar la configuración de los certificados en Gophish.
+> [!TIP]
+> Acordarse de la ruta donde se guardan los certificados, necesitaremos ese path para realizar la configuración de los certificados en Gophish.
 
 Con los certificados SSL y el dominio correctamente creados, se puede instalar y configurar Gophish.
