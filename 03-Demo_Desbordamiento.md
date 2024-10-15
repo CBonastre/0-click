@@ -178,7 +178,8 @@ Una vez que tenemos el ejecutable en nuestra máquina Windows, procedemos a ejec
 
 ![Captura10](https://github.com/CBonastre/0-click/assets/151465796/de3b03f3-82f9-40e5-a06a-b4934dc2a2d7)
 
-**NOTA:** Cada vez que realicemos una prueba y, como consecuencia, el ejecutable quede fuera de servicio, deberemos reiniciarlo junto con el debugger. 
+> [!CAUTION]
+> Cada vez que realicemos una prueba y, como consecuencia, el ejecutable quede fuera de servicio, deberemos reiniciarlo junto con el debugger. 
 
 **Uso de Immunity Debugger para Analizar el Ejecutable**
 
@@ -188,8 +189,8 @@ Al abrir Immunity Debugger, seleccionamos el ejecutable Brainpan navegando a "Fi
 
 ![Captura12](https://github.com/CBonastre/0-click/assets/151465796/4947eb4b-fce1-4a37-95e7-06065b21ec12)
 
-**IMPORTANTE**
-: Cada vez que seleccionemos un programa, este por defecto se pausa en el debugger. Importante antes de ralizar ninguna prueba pulsar el iconito de "Run" (F9).
+> [!IMPORTANT]
+> Cada vez que seleccionemos un programa, este por defecto se pausa en el debugger. Importante antes de ralizar ninguna prueba pulsar el iconito de "Run" (F9).
 
 **Objetivo: Sobreescribir el Registro EIP**
 
