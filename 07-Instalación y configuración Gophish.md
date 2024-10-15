@@ -10,7 +10,8 @@ El primer paso es descargar Gophish desde el repositorio oficial. Utiliza el sig
 git clone https://github.com/gophish/gophish/releases/download/v0.12.1/gophish-v0.12.1-osx-64bit.zip
 ```
 
-**Nota:** Asegúrate de verificar si hay versiones más actualizadas en el repositorio oficial.
+> [!WARNING]
+> Asegúrate de verificar si hay versiones más actualizadas en el repositorio oficial.
 ## Creación carpeta
 
 Una vez descargado, moveremos el archivo a un directorio nuevo dentro de `/opt`.
