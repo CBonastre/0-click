@@ -71,5 +71,5 @@ Una vez que Ubuntu Server esté instalado, sigue estos pasos para configurar una
    - Comprueba que la interfaz de red tenga la dirección IP estática configurada.
 
 Ahora el servidor Ubuntu Server ya está instalado y configurado correctamente para la instalación de Gophish.
-
-**NOTA**: Es importante realizar un correcto redirecionamiento de puertos en el enrutador para un correcto funcionamiento.
+>[!NOTE]
+> Es importante realizar un correcto redirecionamiento de puertos en el enrutador para un correcto funcionamiento.
