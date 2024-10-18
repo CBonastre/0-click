@@ -7,7 +7,7 @@ El siguiente paso es instalar Gophish en nuestro servidor y configurarlo correct
 El primer paso es descargar Gophish desde el repositorio oficial. Utiliza el siguiente comando para descargar la última versión disponible, asegurándote de obtener la versión más actualizada:
 
 ```bash
-git clone https://github.com/gophish/gophish/releases/download/v0.12.1/gophish-v0.12.1-osx-64bit.zip
+wget https://github.com/gophish/gophish/releases/download/v0.12.1/gophish-v0.12.1-osx-64bit.zip
 ```
 
 > [!WARNING]
